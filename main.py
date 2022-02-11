@@ -350,7 +350,7 @@ def info_plane(n):
         ax.set_xlim( [ 0, 7])
         ax.set_ylabel('I(T;Y)', fontsize=fontsize)
         ax.set_ylim( [ 0,.7])
-        ax.set_title(f'Layer {layer}', fontsize=fontsize)
+        ax.set_title(f'Info Plane', fontsize=fontsize)
     p_table = avg_data.pivot( index='Epochs', columns='Layer',values=['I_XT', 'I_TY'])
     ax.plot( p_table['I_XT'].to_numpy().T, 
             p_table['I_TY'].to_numpy().T,
