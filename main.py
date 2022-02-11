@@ -317,8 +317,9 @@ def info_plane(n):
         I_TYs += data['I_TY'] / n
     avg_data = { 'I_XT': I_XTs,
                  'I_TY': I_TYs,
-                 'layer': data['Layer'],
+                 'Layer': data['Layer'],
                  'Epochs': data['Epochs']}
+    avg_data = pd.DataFrame( avg_data)
     layers = avg_data['Layer'].unique()
 
     nr = nc = 2
