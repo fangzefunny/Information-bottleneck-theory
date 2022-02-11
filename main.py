@@ -329,7 +329,7 @@ def info_plane(n):
         subdata = avg_data[ avg_data['Layer']==layer]
         ifleg = True if i==0 else False
         sns.scatterplot( x='I_XT', y='I_TY', data=subdata, 
-                         hue='Epochs', sizes=30, 
+                         hue='Epochs', s=50, linewidth=1e-1,
                          legend=ifleg, ax=ax)
         ax.set_xlabel('I(X;T)', fontsize=fontsize)
         ax.set_xlim( [ 0, 7])
@@ -337,12 +337,31 @@ def info_plane(n):
         ax.set_ylim( [ 0,.7])
         ax.set_title(f'Layer {layer}', fontsize=fontsize)
     fig.tight_layout()
+    plt.savefig( f'{path}/figures/Info_plane-splited.png')
+
+    fig, ax = plt.subplots( 1, 1, figsize=(1*6,1*6))
+    for i, layer in enumerate(layers):
+        subdata = avg_data[ avg_data['Layer']==layer]
+        ifleg = True if i==0 else False
+        sns.scatterplot( x='I_XT', y='I_TY', data=subdata, 
+                         hue='Epochs', s=100, linewidth=1e-1,
+                         legend=ifleg, ax=ax)
+        ax.set_xlabel('I(X;T)', fontsize=fontsize)
+        ax.set_xlim( [ 0, 7])
+        ax.set_ylabel('I(T;Y)', fontsize=fontsize)
+        ax.set_ylim( [ 0,.7])
+        ax.set_title(f'Layer {layer}', fontsize=fontsize)
+    p_table = avg_data.pivot( index='Epochs', columns='Layer',values=['I_XT', 'I_TY'])
+    ax.plot( p_table['I_XT'].to_numpy().T, 
+            p_table['I_TY'].to_numpy().T,
+            color='k', alpha=.2, linewidth=.1)
+    fig.tight_layout()
     plt.savefig( f'{path}/figures/Info_plane.png')
 
 if __name__ == '__main__':
 
     ## Train or not?
-    train = True
+    train = False
     n = 20
 
     if train:
